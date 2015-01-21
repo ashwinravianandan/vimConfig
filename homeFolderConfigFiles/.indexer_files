@@ -1,0 +1,39 @@
+[Scania]
+option:ctags_params="--languages=c++,c"
+
+/mnt/dDrive/P4/ScaniaUISpeechService/uispeech_service/trunk/src
+#/mnt/dDrive/P4/ScaniaUISpeechService/host/win32/x86/usr/include
+#/mnt/dDrive/P4/ScaniaUISpeechService/target/win32/x86/include
+#/mnt/dDrive/P4/ScaniaUISpeechService/target/qnx6/armle-v7/usr/include
+
+
+[Scania on GIT]
+option:ctags_params="--languages=c++,c"
+
+/mnt/dDrive/gitRepos/manScania.git/server
+#/mnt/dDrive/P4/ScaniaUISpeechService/host/win32/x86/usr/include
+#/mnt/dDrive/P4/ScaniaUISpeechService/target/win32/x86/include
+#/mnt/dDrive/P4/ScaniaUISpeechService/target/qnx6/armle-v7/usr/include
+
+[TML]
+/mnt/dDrive/P4/AllOfInfotainment/TML/Level_B/packages/mainproc/harman/VR/UISpeechService/trunk/src
+/mnt/dDrive/P4/ScaniaUISpeechService/host/win32/x86/usr/include
+/mnt/dDrive/P4/ScaniaUISpeechService/target/win32/x86/include
+/mnt/dDrive/P4/ScaniaUISpeechService/target/qnx6/armle-v7/usr/include
+
+[UISpeechService CPP Unit tests on Git]
+/mnt/dDrive/gitRepos/cppUnitTests.git/cppUnitTests
+/mnt/dDrive/gitRepos/cppUnitTests.git/server
+/mnt/dDrive/gitRepos/UnitTestBuild/host/win32/x86/usr/include
+/mnt/dDrive/gitRepos/UnitTestBuild/target/qnx6/usr/include/gtest
+/mnt/dDrive/gitRepos/UnitTestBuild/target/win32/x86/include
+/mnt/dDrive/gitRepos/UnitTestBuild/target/qnx6/armle-v7/usr/include
+
+
+[Subaru DM]
+
+/mnt/dDrive/P4/SubaruDM/trunk/src
+/mnt/dDrive/P4/SubaruDM/target/win32/x86/include
+/mnt/dDrive/P4/SubaruDM/target/qnx6/usr/include
+/mnt/dDrive/P4/SubaruDM/host/win32/x86/usr/include
+/mnt/dDrive/P4/SubaruDM/target/qnx6/armle-v7/usr/include
