@@ -213,7 +213,7 @@ let g:xptemplate_snippet_folders=['~/.vim/xptemplate_personal_snippets']
 "-------------------------------------------------------
 " vim notes settings
 "-------------------------------------------------------
-let g:notes_directories = ['/mnt/dDrive/Ashwin/Documents/vim-notes']
+let g:notes_directories = ['~/Documents/Notes']
 let g:notes_list_bullets = ['*', '-', '+']
 let g:notes_suffix = '.md'
 
@@ -223,12 +223,11 @@ so ~/.vim/bundle/a.vim
 so ~/.vim/bundle/cscope_maps.vim
 
 " Plant uml setting
-command! BuildUML :!java -jar "/mnt/dDrive/Ashwin/Documents/plantuml.jar" -o "/mnt/dDrive/Ashwin/Documents/html-notes/images/plantUML" "%"
+command! BuildUML :!java -jar "~/Documents/Notes/plantuml.jar" -o "~/Documents/html-notes/images/plantUML" "%"
 
 "-------------------------------------------------------
 " vim todo settings
 "-------------------------------------------------------
-command! Task :e /mnt/dDrive/Ashwin/todo.txt
 command! Underline :call Underline()<CR>
 
 
@@ -269,4 +268,6 @@ nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
 "
 "endif
 
+"ycm settings
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
