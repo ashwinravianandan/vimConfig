@@ -22,10 +22,10 @@ if has("gui_running")
 else
   " This is console Vim.
   if exists("+lines")
-    set lines=50
+    set lines=9999
   endif
   if exists("+columns")
-    set columns=100
+    set columns=9999
   endif
 endif
 
@@ -213,7 +213,7 @@ let g:xptemplate_snippet_folders=['~/.vim/xptemplate_personal_snippets']
 "-------------------------------------------------------
 " vim notes settings
 "-------------------------------------------------------
-let g:notes_directories = ['~/Documents/Notes']
+let g:notes_directories = ['/mnt/dDrive/Ashwin/Documents/vim-notes']
 let g:notes_list_bullets = ['*', '-', '+']
 let g:notes_suffix = '.md'
 
@@ -223,11 +223,12 @@ so ~/.vim/bundle/a.vim
 so ~/.vim/bundle/cscope_maps.vim
 
 " Plant uml setting
-command! BuildUML :!java -jar "~/Documents/Notes/plantuml.jar" -o "~/Documents/html-notes/images/plantUML" "%"
+command! BuildUML :!java -jar "/usr/local/bin/plantuml.jar" -o "/mnt/dDrive/Ashwin/Documents/html-notes/images/plantUML" "%"
 
 "-------------------------------------------------------
 " vim todo settings
 "-------------------------------------------------------
+command! Task :e /mnt/dDrive/Ashwin/todo.txt
 command! Underline :call Underline()<CR>
 
 
@@ -254,6 +255,7 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>r :<C-u>Unite -start-insert buffer file_rec<CR>
 nnoremap <leader>y :<C-u>Unite history/yank<CR>
 nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
+nnoremap <leader>u :Unite outline -vertical -winwidth=30 -buffer-name=unite-outline-buffer<CR>
 
 "-------------------------------------------------------
 " taskwarrior mappings
@@ -267,7 +269,14 @@ nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
 "   let g:unite_source_grep_recursive_opt = ''
 "
 "endif
+"
+"ultisnips settings
+
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnipsPersonalSnippets"
 
 "ycm settings
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
+" taskwarrior overrides
+let g:task_rc_override = 'rc.defaultwidth=0 rc.defaultheight=0 rc.forcecolor=yes'
+let g:task_report_name = 'ready'
