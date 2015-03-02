@@ -49,6 +49,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "indentLine"]
-	path = indentLine
+[submodule "bundle/indentLine"]
+	path = bundle/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
