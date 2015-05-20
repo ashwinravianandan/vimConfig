@@ -18,3 +18,9 @@ function! InsertImagePath()
    endif
    return l:FilePath
 endfunction
+
+function! PythonMarkDownToHtml()
+   let l:Output = expand("%:p:h") . "/../html-notes/" . expand("%:p:t:r") . ".html"
+   let l:Stylesheet = expand("%:p:h") . "/../html-notes/vimNotesStyleSheet.css"
+   execute "!python ~/markdownCSS_py.py \"" . expand("%:p") . "\" \"" . l:Stylesheet . "\""  . " \"".  l:Output . "\""
+endfunction
