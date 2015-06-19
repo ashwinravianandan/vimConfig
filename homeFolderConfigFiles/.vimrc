@@ -3,12 +3,15 @@ set nocompatible
 "-------------------------------------------------------
 " Gui settings
 "-------------------------------------------------------
-  colorscheme molokai
+scriptencoding utf-8
+set encoding=utf-8
+set background=dark
+  colorscheme lucius
 if has('gui_running')
   set guioptions-=T  " no toolbar
   set guioptions-=m  " no menubar
   "colorscheme solarized
-  colorscheme xoria256
+  "colorscheme navajo-night
   "set guifont=ProggyCleanTT:h14:cANSI
   "set guifont=Source_Code_Pro:h11:cANSI
 endif
@@ -29,6 +32,7 @@ else
   endif
 endif
 
+so $VIMRUNTIME/ftplugin/man.vim
 
 set history=1000 "More history, default is 20
 set nu "show line numbers
@@ -87,19 +91,19 @@ command! BuildCScopeDB :!cscope -b -R -s .<CR>
 set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
 
 " OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-"set completeopt=menuone,menu,longest,preview
-set completeopt=menuone,menu,longest
-
+"let OmniCpp_NamespaceSearch = 1
+"let OmniCpp_GlobalScopeSearch = 1
+"let OmniCpp_ShowAccess = 1
+"let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+"let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+"let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+"let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+"let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+"" automatically open and close the popup menu / preview window
+"au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+""set completeopt=menuone,menu,longest,preview
+"set completeopt=menuone,menu,longest
+"let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 "-------------------------------------------------------
 " Mapping for , since it is used as the mapleader
 "-------------------------------------------------------
@@ -143,7 +147,7 @@ set noshellslash
 "-------------------------------------------------------
 "settings for display of eol and tab chars
 "-------------------------------------------------------
-set listchars=eol:¬
+set listchars=eol:Â¬
 set list
 "-------------------------------------------------------
 "Pathogen Settings
@@ -164,7 +168,7 @@ set syntax=on
 set ignorecase  "ignores case
 set smartcase   "considers upper case if used
 
-set vb  "Visual bell, no more beeps
+set novb  "Visual bell, no more beeps
 
 set hidden  "allows buffers to be hidden so that we dont have to confirm everytime
 set showcmd  "shows command while typing
@@ -234,8 +238,9 @@ command! Underline :call Underline()<CR>
 
 "vim notes 
 
-au filetype notes nmap <silent><buffer> <C-B> :call MarkDownToHtml()<CR>
+au filetype notes nmap <silent><buffer> <C-B> :call PythonMarkDownToHtml()<CR>
 au filetype notes set spell
+augroup
 
 "Using par
 set formatprg=par\ -w80
@@ -252,23 +257,22 @@ let g:unite_force_overwrite_statusline = 0
 let g:unite_winheight = 15
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>r :<C-u>Unite -start-insert buffer file_rec<CR>
+nnoremap <leader>r :<C-u>Unite -start-insert buffer file_rec/async:!<CR>
 nnoremap <leader>y :<C-u>Unite history/yank<CR>
-nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
-nnoremap <leader>u :Unite outline -vertical -winwidth=30 -buffer-name=unite-outline-buffer<CR>
+"nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
+"nnoremap <leader>u :Unite outline -vertical -winwidth=30 -buffer-name=unite-outline-buffer/async:!<CR>
 
 "-------------------------------------------------------
 " taskwarrior mappings
 "-------------------------------------------------------
-"if executable('ag')
-"   set grepprg=ag\ --nogroup\ --nocolor\ --column\ --ignore\ tags\ " use ag for text searches
-"   set grepformat=%f:%l:%c%m
-"   let g:unite_source_rec_async_command= 'ag --follow --nocolor --nogroup --hidden -g ""'
-"   let g:unite_source_grep_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
-"   let g:unite_source_grep_default_opts = '-i --nogroup --nocolor --hidden'
-"   let g:unite_source_grep_recursive_opt = ''
-"
-"endif
+if executable('ag')
+   set grepprg=ag\ --nogroup\ --nocolor\ --column\ --ignore\ tags\ " use ag for text searches
+   set grepformat=%f:%l:%c%m
+   let g:unite_source_rec_async_command= 'ag -p ~/.agignore --follow --nocolor --nogroup --hidden -g ""'
+   let g:unite_source_grep_command = 'ag -p ~/.agignore --follow --nocolor --nogroup --hidden -g ""'
+   let g:unite_source_grep_default_opts = '-i --nogroup --nocolor --hidden'
+   let g:unite_source_grep_recursive_opt = ''
+endif
 "
 "ultisnips settings
 
@@ -276,7 +280,25 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnipsPersonalSnippets"
 
 "ycm settings
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:UltiSnipsSnippetDirectories = [ 'Ultisnips', 'UltiSnipsPersonalSnippets' ]
+"let g:ycm_use_ultisnips_completer = 0
+let g:UltiSnipsExpandTrigger="<C-e>"
+"let g:UltiSnipsListSnippets="<c-tab>"
+"let g:UltiSnipsJumpForwardTrigger="<C-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+
 
 " taskwarrior overrides
 let g:task_rc_override = 'rc.defaultwidth=0 rc.defaultheight=0 rc.forcecolor=yes'
 let g:task_report_name = 'ready'
+"let g:indexer_debugLogLevel = 2
+"let g:indexer_backgroundDisabled = 1
+
+let g:indentLine_enabled = 0
+
+"YCM Settings
+au filetype cpp nnoremap <silent><buffer> <leader>g :YcmCompleter GoToDefinition<CR>
+au filetype cpp nnoremap <silent><buffer> <leader>d :YcmCompleter GoToDeclaration<CR>
+au filetype cpp nnoremap <silent><buffer> <leader>t :YcmCompleter GoToImprecise<CR>
+au filetype cpp nnoremap <silent><buffer> <leader>s :YcmCompleter GoTo<CR>
+
