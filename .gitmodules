@@ -55,3 +55,9 @@
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/lucius"]
+	path = bundle/lucius
+	url = https://github.com/jonathanfilip/vim-lucius.git
+[submodule "bundle/apprentice"]
+	path = bundle/apprentice
+	url = https://github.com/romainl/Apprentice.git
