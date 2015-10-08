@@ -6,7 +6,9 @@ set nocompatible
 scriptencoding utf-8
 set encoding=utf-8
 set background=dark
-  colorscheme lucius
+syntax on
+  "colorscheme lucius
+  colorscheme wombat
 if has('gui_running')
   set guioptions-=T  " no toolbar
   set guioptions-=m  " no menubar
@@ -14,6 +16,10 @@ if has('gui_running')
   "colorscheme navajo-night
   "set guifont=ProggyCleanTT:h14:cANSI
   "set guifont=Source_Code_Pro:h11:cANSI
+else
+  colorscheme lucius
+  set lazyredraw
+  set ttyfast
 endif
 "-------------------------------------------------------
 " Gui settings: Sets window to max size
@@ -152,6 +158,7 @@ set list
 "-------------------------------------------------------
 "Pathogen Settings
 "-------------------------------------------------------
+let g:pathogen_disabled = ['unite-outline', 'unite-tag', 'unite.vim', 'vim-fugitive']
 call pathogen#infect()
 "-------------------------------------------------------
 "Filetype settings
@@ -161,7 +168,6 @@ filetype on
 filetype indent on
 filetype plugin on
 
-set syntax=on
 "-------------------------------------------------------
 "Case sensitivity
 "-------------------------------------------------------
@@ -240,14 +246,12 @@ command! Underline :call Underline()<CR>
 
 au filetype notes nmap <silent><buffer> <C-B> :call PythonMarkDownToHtml()<CR>
 au filetype notes set spell
-augroup
+"augroup
 
 "Using par
 set formatprg=par\ -w80
 
-"Perforce settings
-"let g:p4Presets = '10.90.66.25:3530 UISpeech_Service_JLR07_04_2014_AAnandan_OABLP083_share AAnandan'
-
+let g:ctrlp_map = '<leader>r'
 "-------------------------------------------------------
 "unite settings
 "-------------------------------------------------------
@@ -256,8 +260,8 @@ let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 let g:unite_winheight = 15
 let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>r :<C-u>Unite -start-insert buffer file_rec/async:!<CR>
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>r :<C-u>Unite -start-insert file_rec/async:!<CR>
 nnoremap <leader>y :<C-u>Unite history/yank<CR>
 "nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
 "nnoremap <leader>u :Unite outline -vertical -winwidth=30 -buffer-name=unite-outline-buffer/async:!<CR>
@@ -265,14 +269,14 @@ nnoremap <leader>y :<C-u>Unite history/yank<CR>
 "-------------------------------------------------------
 " taskwarrior mappings
 "-------------------------------------------------------
-if executable('ag')
-   set grepprg=ag\ --nogroup\ --nocolor\ --column\ --ignore\ tags\ " use ag for text searches
-   set grepformat=%f:%l:%c%m
-   let g:unite_source_rec_async_command= 'ag -p ~/.agignore --follow --nocolor --nogroup --hidden -g ""'
-   let g:unite_source_grep_command = 'ag -p ~/.agignore --follow --nocolor --nogroup --hidden -g ""'
-   let g:unite_source_grep_default_opts = '-i --nogroup --nocolor --hidden'
-   let g:unite_source_grep_recursive_opt = ''
-endif
+"if executable('ag')
+"   set grepprg=ag\ --nogroup\ --nocolor\ --column\ --ignore\ tags\ " use ag for text searches
+"   set grepformat=%f:%l:%c%m
+"   let g:unite_source_rec_async_command= 'ag -p ~/.agignore --follow --nocolor --nogroup --hidden -g ""'
+"   let g:unite_source_grep_command = 'ag -p ~/.agignore --follow --nocolor --nogroup --hidden -g ""'
+"   let g:unite_source_grep_default_opts = '-i --nogroup --nocolor --hidden'
+"   let g:unite_source_grep_recursive_opt = ''
+"endif
 "
 "ultisnips settings
 
