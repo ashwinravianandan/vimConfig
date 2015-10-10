@@ -3,8 +3,16 @@ set nocompatible
 "-------------------------------------------------------
 " Gui settings
 "-------------------------------------------------------
-scriptencoding utf-8
-set encoding=utf-8
+
+if has("multi_byte")
+   if &termencoding == ""
+      let &termencoding = &encoding
+   endif
+   set encoding=utf-8
+   setglobal fileencoding=utf-8
+   "setglobal bomb
+   set fileencodings=ucs-bom,utf-8,latin1
+endif
 set background=dark
 syntax on
   "colorscheme lucius
@@ -18,8 +26,8 @@ if has('gui_running')
   "set guifont=Source_Code_Pro:h11:cANSI
 else
   colorscheme lucius
-  set lazyredraw
-  set ttyfast
+   set nolazyredraw
+   set ttyfast
 endif
 "-------------------------------------------------------
 " Gui settings: Sets window to max size
@@ -49,14 +57,14 @@ set scrolloff=3
 if has('statusline')
         set laststatus=2
 
-" Broken down into easily includeable segments
-set statusline=%<%f\ " Filename
-set statusline+=%w%h%m%r " Options
-"set statusline+=%{fugitive#statusline()} " Git Hotness
-set statusline+=\ [%{&ff}/%Y] " filetype
-set statusline+=\ [%{getcwd()}] " current dir
-set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
-set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+   " Broken down into easily includeable segments
+   set statusline=%<%f\ " Filename
+   set statusline+=%w%h%m%r " Option
+   set statusline+=%{fugitive#statusline()} " Git Hotnes                                                                s
+   set statusline+=\ [%{&ff}/%Y] " filetype
+   set statusline+=\ [%{getcwd()}] " current dir
+   set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
+   set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 endif
 
 "-------------------------------------------------------
@@ -158,7 +166,7 @@ set list
 "-------------------------------------------------------
 "Pathogen Settings
 "-------------------------------------------------------
-let g:pathogen_disabled = ['unite-outline', 'unite-tag', 'unite.vim', 'vim-fugitive']
+let g:pathogen_disabled = ['apprentice', 'indentLine', 'unite-outline', 'unite-tag', 'unite.vim', 'vimproc.git']
 call pathogen#infect()
 "-------------------------------------------------------
 "Filetype settings
@@ -174,7 +182,8 @@ filetype plugin on
 set ignorecase  "ignores case
 set smartcase   "considers upper case if used
 
-set novb  "Visual bell, no more beeps
+"set vb  "Visual bell, no more beeps
+set novb
 
 set hidden  "allows buffers to be hidden so that we dont have to confirm everytime
 set showcmd  "shows command while typing
@@ -226,6 +235,7 @@ let g:xptemplate_snippet_folders=['~/.vim/xptemplate_personal_snippets']
 let g:notes_directories = ['/mnt/dDrive/Ashwin/Documents/vim-notes']
 let g:notes_list_bullets = ['*', '-', '+']
 let g:notes_suffix = '.md'
+let g:notes_unicode_enabled = 0
 
 
 
@@ -261,7 +271,7 @@ let g:unite_force_overwrite_statusline = 0
 let g:unite_winheight = 15
 let g:unite_source_history_yank_enable = 1
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>r :<C-u>Unite -start-insert file_rec/async:!<CR>
+"nnoremap <leader>r :<C-u>Unite -start-insert file_rec/async:!<CR>
 nnoremap <leader>y :<C-u>Unite history/yank<CR>
 "nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
 "nnoremap <leader>u :Unite outline -vertical -winwidth=30 -buffer-name=unite-outline-buffer/async:!<CR>
