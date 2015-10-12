@@ -62,3 +62,52 @@ switch ${1:input}
 }
 endsnippet
 
+snippet class "cpp class declaration"
+class ${1: name of the class}
+{
+	private:
+		$0
+	protected:
+
+	public:
+		$1( );
+		virtual ~$1( );
+};
+endsnippet
+
+snippet vct "declares vector"
+vector< $1 > $0;
+endsnippet
+
+snippet vctit "declares iterator to vector"
+vector< $1 >::iterator $0;
+endsnippet
+
+snippet map "declares map"
+map< $1, $2> $0;
+endsnippet
+
+snippet mapit "declares iterator to map"
+map< $1, $2>::iterator $0;
+endsnippet
+
+snippet for "for loop"
+for( ${1:loop iterator} = ${2: initial value}; $1 < ${3: limit}; ++$1 )
+{
+	$0;
+}
+endsnippet
+
+snippet forit "iterator based for loop"
+for( ${1: iterator} = ${2: map name}.begin(); $1 < $2.end(); ++$1 )
+{
+	$0;
+}
+endsnippet
+
+snippet if "if condition"
+if ( ${1: condition} )
+{
+	$0;
+}
+
