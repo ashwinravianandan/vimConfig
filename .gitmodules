@@ -43,9 +43,6 @@
 [submodule "bundle/YouCompleteMe"]
 	path = bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
-[submodule "tagbar"]
-	path = tagbar
-	url = https://github.com/majutsushi/tagbar.git
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
@@ -61,6 +58,9 @@
 [submodule "bundle/apprentice"]
 	path = bundle/apprentice
 	url = https://github.com/romainl/Apprentice.git
+[submodule "bundle/vimproc.git"]
+	path = bundle/vimproc.git
+	url = https://github.com/Shougo/vimproc.vim.git
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
