@@ -158,7 +158,7 @@ set list
 "-------------------------------------------------------
 "Pathogen Settings
 "-------------------------------------------------------
-let g:pathogen_disabled = ['unite-outline', 'unite-tag', 'unite.vim', 'vim-fugitive']
+let g:pathogen_disabled = [ 'indentline', 'unite-outline', 'unite-tag', 'unite.vim', 'apprentice' ]
 call pathogen#infect()
 "-------------------------------------------------------
 "Filetype settings
@@ -234,6 +234,7 @@ so ~/.vim/bundle/cscope_maps.vim
 
 " Plant uml setting
 command! BuildUML :!java -jar "/usr/local/bin/plantuml.jar" -o "/mnt/dDrive/Ashwin/Documents/html-notes/images/plantUML" "%"
+command! -nargs=1 FilterLogs  call FilterDbusLogs(<f-args>)
 
 "-------------------------------------------------------
 " vim todo settings
@@ -305,4 +306,6 @@ au filetype cpp nnoremap <silent><buffer> <leader>g :YcmCompleter GoToDefinition
 au filetype cpp nnoremap <silent><buffer> <leader>d :YcmCompleter GoToDeclaration<CR>
 au filetype cpp nnoremap <silent><buffer> <leader>t :YcmCompleter GoToImprecise<CR>
 au filetype cpp nnoremap <silent><buffer> <leader>s :YcmCompleter GoTo<CR>
+
+
 

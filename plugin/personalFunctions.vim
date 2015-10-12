@@ -24,3 +24,11 @@ function! PythonMarkDownToHtml()
    let l:Stylesheet = expand("%:p:h") . "/../html-notes/vimNotesStyleSheet.css"
    execute "!python ~/markdownCSS_py.py \"" . expand("%:p") . "\" \"" . l:Stylesheet . "\""  . " \"".  l:Output . "\""
 endfunction
+
+function! FilterDbusLogs( Pattern )
+   let @l="?interfaceO}}}1jNNO{{{1"
+   let l:Pattern = substitute( a:Pattern, "\|", "\\\\|", "g" )
+   execute 'g/' . l:Pattern . '/normal @l'
+   normal ggO{{{1
+   normal zM
+endfunction
