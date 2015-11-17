@@ -11,19 +11,20 @@ if has("multi_byte")
    set encoding=utf-8
    setglobal fileencoding=utf-8
    "setglobal bomb
-   set fileencodings=ucs-bom,utf-8,latin1
+   "set fileencodings=ucs-bom,utf-8,latin1
 endif
 set background=dark
 syntax on
   "colorscheme lucius
   colorscheme wombat
 if has('gui_running')
-  set guioptions-=T  " no toolbar
-  set guioptions-=m  " no menubar
-  "colorscheme solarized
-  "colorscheme navajo-night
-  "set guifont=ProggyCleanTT:h14:cANSI
-  "set guifont=Source_Code_Pro:h11:cANSI
+   set guioptions-=T  " no toolbar
+   set guioptions-=m  " no menubar
+   "colorscheme solarized
+   set background=dark
+   colorscheme lucius
+   "set guifont=ProggyCleanTT:h14:cANSI
+   "set guifont=Source_Code_Pro:h11:cANSI
 else
   colorscheme lucius
    set nolazyredraw
@@ -33,17 +34,17 @@ endif
 " Gui settings: Sets window to max size
 "-------------------------------------------------------
 if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window.
-  "set lines=9999 columns=9999
+   " GUI is running or is about to start.
+   " Maximize gvim window.
+   "set lines=9999 columns=9999
 else
-  " This is console Vim.
-  if exists("+lines")
-    set lines=9999
-  endif
-  if exists("+columns")
-    set columns=9999
-  endif
+   " This is console Vim.
+   if exists("+lines")
+      set lines=9999
+   endif
+   if exists("+columns")
+      set columns=9999
+   endif
 endif
 
 so $VIMRUNTIME/ftplugin/man.vim
@@ -55,7 +56,7 @@ set nu "show line numbers
 set scrolloff=3
 
 if has('statusline')
-        set laststatus=2
+   set laststatus=2
 
    " Broken down into easily includeable segments
    set statusline=%<%f\ " Filename
@@ -161,7 +162,7 @@ set noshellslash
 "-------------------------------------------------------
 "settings for display of eol and tab chars
 "-------------------------------------------------------
-set listchars=eol:Â¬
+set listchars=eol:¬
 set list
 "-------------------------------------------------------
 "Pathogen Settings
@@ -198,27 +199,27 @@ set showmode
 "-------------------------------------------------------
 "set diffexpr=MyDiff()
 function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+   let opt = '-a --binary '
+   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+   let arg1 = v:fname_in
+   if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+   let arg2 = v:fname_new
+   if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+   let arg3 = v:fname_out
+   if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+   let eq = ''
+   if $VIMRUNTIME =~ ' '
+      if &sh =~ '\<cmd'
+         let cmd = '""' . $VIMRUNTIME . '\diff"'
+         let eq = '"'
+      else
+         let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+      endif
+   else
+      let cmd = $VIMRUNTIME . '\diff'
+   endif
+   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
 
@@ -232,7 +233,7 @@ let g:xptemplate_snippet_folders=['~/.vim/xptemplate_personal_snippets']
 "-------------------------------------------------------
 " vim notes settings
 "-------------------------------------------------------
-let g:notes_directories = ['/mnt/dDrive/Ashwin/Documents/vim-notes']
+let g:notes_directories = ['/home/ashwin/Documents/notes']
 let g:notes_list_bullets = ['*', '-', '+']
 let g:notes_suffix = '.md'
 let g:notes_unicode_enabled = 0
@@ -243,13 +244,12 @@ so ~/.vim/bundle/a.vim
 so ~/.vim/bundle/cscope_maps.vim
 
 " Plant uml setting
-command! BuildUML :!java -jar "/usr/local/bin/plantuml.jar" -o "/mnt/dDrive/Ashwin/Documents/html-notes/images/plantUML" "%"
+command! BuildUML :!java -jar "/usr/local/bin/plantuml.jar" -o "/home/ashwin/Documents/html-notes/images/plantUML" "%"
 command! -nargs=1 FilterLogs  call FilterDbusLogs(<f-args>)
 
 "-------------------------------------------------------
 " vim todo settings
 "-------------------------------------------------------
-command! Task :e /mnt/dDrive/Ashwin/todo.txt
 command! Underline :call Underline()<CR>
 
 
@@ -257,7 +257,6 @@ command! Underline :call Underline()<CR>
 
 au filetype notes nmap <silent><buffer> <C-B> :call PythonMarkDownToHtml()<CR>
 au filetype notes set spell
-"augroup
 
 "Using par
 set formatprg=par\ -w80
@@ -310,6 +309,7 @@ let g:task_report_name = 'ready'
 "let g:indexer_backgroundDisabled = 1
 
 let g:indentLine_enabled = 0
+let g:bm_automark_todo = 1
 
 "YCM Settings
 au filetype cpp nnoremap <silent><buffer> <leader>g :YcmCompleter GoToDefinition<CR>
@@ -317,5 +317,6 @@ au filetype cpp nnoremap <silent><buffer> <leader>d :YcmCompleter GoToDeclaratio
 au filetype cpp nnoremap <silent><buffer> <leader>t :YcmCompleter GoToImprecise<CR>
 au filetype cpp nnoremap <silent><buffer> <leader>s :YcmCompleter GoTo<CR>
 
-
-
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let c_no_curly_error=1
