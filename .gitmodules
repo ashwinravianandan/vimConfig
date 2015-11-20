@@ -73,4 +73,3 @@
 [submodule "bundle/STL-Syntax.git"]
 	path = bundle/STL-Syntax.git
 	url = https://github.com/vim-scripts/STL-Syntax.git
->>>>>>> 11bd25411fe7b6d1e1f9ba59cb5d79784f8c1ce3
