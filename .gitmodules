@@ -73,3 +73,9 @@
 [submodule "bundle/STL-Syntax.git"]
 	path = bundle/STL-Syntax.git
 	url = https://github.com/vim-scripts/STL-Syntax.git
+[submodule "bundle/dirdiff"]
+	path = bundle/dirdiff
+	url = https://github.com/will133/vim-dirdiff.git
+[submodule "bundle/vim-colorschemes"]
+	path = bundle/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
