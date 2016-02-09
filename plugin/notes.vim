@@ -31,18 +31,19 @@ endfunction
 function! NewNoteWithPath()
    let l:NoteFile = input( "Open: ", g:NotesDir . "/", "file" )
    let l:NoteRoot = substitute( l:NoteFile, '\(.*\)\/.*', '\1', 'g' )
+   let l:NoteFile = substitute( l:NoteFile, '\ ','\\\ ', 'g') 
    if !isdirectory( l:NoteRoot )
       call mkdir( l:NoteRoot,'p')
    endif
    if l:NoteFile !~ '\.md$'
-      execute "edit \'" . l:NoteFile . "\.md\'"
+      execute "edit " . l:NoteFile . "\.md"
    else
       execute "edit \'" . l:NoteFile . "\'"
    endif
 endfunction
 
 function! PythonMarkDownToHtml()
-   let l:Output = g:HtmlDir . expand("%:p:t:r") . ".html"
+   let l:Output = g:HtmlDir . "/" . expand("%:p:t:r") . ".html"
    let l:Stylesheet = g:HtmlDir . "/vimNotesStyleSheet.css"
    execute "!python ~/markdownCSS_py.py \"" . expand("%:p") . "\" \"" . l:Stylesheet . "\""  . " \"".  l:Output . "\""
 endfunction
