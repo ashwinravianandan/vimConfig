@@ -38,7 +38,7 @@ function! NewNoteWithPath()
    if l:NoteFile !~ '\.md$'
       execute "edit " . l:NoteFile . "\.md"
    else
-      execute "edit \'" . l:NoteFile . "\'"
+      execute "edit " . l:NoteFile
    endif
 endfunction
 
