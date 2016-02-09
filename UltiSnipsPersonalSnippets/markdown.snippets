@@ -1,0 +1,17 @@
+snippet plantuml
+<!---
+@startuml "${1:filename}"
+$0
+@enduml
+-->
+
+![](./images/plantUML/$1)
+endsnippet
+
+snippet ilink
+[ ${1:link text} ](#${2:hyperlink})$0
+endsnippet
+
+snippet link
+[ ${1:link text} ](${2:hyperlink})$0
+endsnippet

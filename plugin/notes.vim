@@ -13,30 +13,38 @@ endfunction
 call s:set('g:NotesDir', $HOME .'/Documents/notes')
 call s:set('g:HtmlDir', $HOME .'/Documents/html-notes')
 
-function! FindInNote( substring )
-  execute "vimgrep /" . a:substring . "/j" . g:NotesDir . "/**/*.md"
+function! FindInNote( )
+   let l:SearchPattern = input( "Search String: " )
+  execute "vimgrep /" . l:SearchPattern . "/j" . g:NotesDir . "/**/*.md"
   copen
 endfunction
 
 
-function! FindNote( substring )
+function! FindNote( )
+   let l:SearchPattern = input( "Search String: " )
    set errorformat+=%f
-  execute "cexpr system(\'find " . g:NotesDir . " -type f \\| grep -i ". a:substring . "\')" 
+  execute "cexpr system(\'find " . g:NotesDir . " -type f \\| grep -i \"". l:SearchPattern . "\"\')" 
    set errorformat-=%f
 endfunction
 
 
-function! NewNoteWithProj( NoteName, Directory )
-   "if !isdirectory( g:NotesDir . "/" . a:Directory)
-   "   call mkdir( g:NotesDir . "/" . a:Directory,'p')
-   "endif
-   "execute "e \'" . g:NotesDir . "/" . a:Directory . "/" . a:NoteName . ".md\'" 
-   echo argc()
+function! NewNoteWithPath()
+   let l:NoteFile = input( "Open: ", g:NotesDir . "/", "file" )
+   let l:NoteRoot = substitute( l:NoteFile, '\(.*\)\/.*', '\1', 'g' )
+   if !isdirectory( l:NoteRoot )
+      call mkdir( l:NoteRoot,'p')
+   endif
+   if l:NoteFile !~ '\.md$'
+      execute "edit \'" . l:NoteFile . "\.md\'"
+   else
+      execute "edit \'" . l:NoteFile . "\'"
+   endif
 endfunction
 
-function! NewNote( NoteName )
-   execute "e \'" . g:NotesDir . "/"  . a:NoteName . ".md\'" 
+function! PythonMarkDownToHtml()
+   let l:Output = g:HtmlDir . expand("%:p:t:r") . ".html"
+   let l:Stylesheet = g:HtmlDir . "/vimNotesStyleSheet.css"
+   execute "!python ~/markdownCSS_py.py \"" . expand("%:p") . "\" \"" . l:Stylesheet . "\""  . " \"".  l:Output . "\""
 endfunction
 
-command! -nargs=1 NewNote call NewNote(<f-args>)
-command! -nargs=* NewProjNote call NewNoteWithProj(<f-args>)
+command! NewNote call NewNoteWithPath()

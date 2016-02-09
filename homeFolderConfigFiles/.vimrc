@@ -1,6 +1,12 @@
 set nocompatible
 
 "-------------------------------------------------------
+"Pathogen Settings
+"-------------------------------------------------------
+let g:pathogen_disabled = [ 'lucius', 'indentline', 'unite-outline', 'unite-tag', 'unite.vim', 'apprentice', 'xptemplate', 'vimproc.git', 'vim-notes', 'vim-misc' ]
+call pathogen#infect()
+
+"-------------------------------------------------------
 " Gui settings
 "-------------------------------------------------------
 
@@ -15,20 +21,20 @@ if has("multi_byte")
 endif
 set background=dark
 syntax on
-  "colorscheme lucius
-  colorscheme wombat
+
 if has('gui_running')
-   set guioptions-=T  " no toolbar
-   set guioptions-=m  " no menubar
-   "colorscheme solarized
-   set background=dark
-   colorscheme lucius
-   "set guifont=ProggyCleanTT:h14:cANSI
-   "set guifont=Source_Code_Pro:h11:cANSI
+  set guioptions-=T  " no toolbar
+  set guioptions-=m  " no menubar
+  "colorscheme solarized
+  colorscheme eclipse
+  "colorscheme navajo-night
+  "set guifont=ProggyCleanTT:h14:cANSI
+  set guifont=Source\ Code\ Pro\ 12
 else
   colorscheme lucius
-   set nolazyredraw
-   set ttyfast
+  set nolazyredraw
+  set ttyfast
+  set guifont=Source\ Code\ Pro\ light\ 10
 endif
 "-------------------------------------------------------
 " Gui settings: Sets window to max size
@@ -163,12 +169,7 @@ set noshellslash
 "settings for display of eol and tab chars
 "-------------------------------------------------------
 set listchars=eol:¬
-set list
-"-------------------------------------------------------
-"Pathogen Settings
-"-------------------------------------------------------
-let g:pathogen_disabled = ['apprentice', 'indentLine', 'unite-outline', 'unite-tag', 'unite.vim', 'vimproc.git']
-call pathogen#infect()
+set nolist
 "-------------------------------------------------------
 "Filetype settings
 "-------------------------------------------------------
@@ -255,8 +256,8 @@ command! Underline :call Underline()<CR>
 
 "vim notes 
 
-au filetype notes nmap <silent><buffer> <C-B> :call PythonMarkDownToHtml()<CR>
-au filetype notes set spell
+au filetype markdown nmap <silent><buffer> <C-B> :call PythonMarkDownToHtml()<CR>
+au filetype markdown set spell
 
 "Using par
 set formatprg=par\ -w80
@@ -272,7 +273,7 @@ let g:unite_winheight = 15
 let g:unite_source_history_yank_enable = 1
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "nnoremap <leader>r :<C-u>Unite -start-insert file_rec/async:!<CR>
-nnoremap <leader>y :<C-u>Unite history/yank<CR>
+"nnoremap <leader>y :<C-u>Unite history/yank<CR>
 "nnoremap <leader>t :<C-u>Unite -start-insert tag<CR>
 "nnoremap <leader>u :Unite outline -vertical -winwidth=30 -buffer-name=unite-outline-buffer/async:!<CR>
 
@@ -309,7 +310,6 @@ let g:task_report_name = 'ready'
 "let g:indexer_backgroundDisabled = 1
 
 let g:indentLine_enabled = 0
-let g:bm_automark_todo = 1
 
 "YCM Settings
 au filetype cpp nnoremap <silent><buffer> <leader>g :YcmCompleter GoToDefinition<CR>
@@ -320,3 +320,10 @@ au filetype cpp nnoremap <silent><buffer> <leader>s :YcmCompleter GoTo<CR>
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 let c_no_curly_error=1
+
+"Markdown notes handling
+let g:NotesDir = '/mnt/dDrive/Ashwin/Documents/vim-notes'
+let g:HtmlDir = '/mnt/dDrive/Ashwin/Documents/html-notes'
+nmap <Leader>nn :call NewNoteWithPath()<CR>
+nmap <Leader>fn :call FindNote()<CR>
+nmap <Leader>sn :call FindInNote()<CR>
