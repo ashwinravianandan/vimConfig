@@ -79,3 +79,6 @@
 [submodule "bundle/vim-colorschemes"]
 	path = bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule "bundle/vimNotes"]
+	path = bundle/vimNotes
+	url = https://github.com/ashwinravianandan/vimNotes.git
