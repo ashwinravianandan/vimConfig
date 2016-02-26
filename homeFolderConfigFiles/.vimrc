@@ -21,7 +21,8 @@ if has("multi_byte")
 endif
 set background=dark
 syntax on
-
+  "colorscheme lucius
+  set guifont=Source\ Code\ Pro\ 12
 if has('gui_running')
   set guioptions-=T  " no toolbar
   set guioptions-=m  " no menubar
@@ -31,7 +32,7 @@ if has('gui_running')
   "set guifont=ProggyCleanTT:h14:cANSI
   set guifont=Source\ Code\ Pro\ 12
 else
-  colorscheme lucius
+  colorscheme molokai
   set nolazyredraw
   set ttyfast
   set guifont=Source\ Code\ Pro\ light\ 10
@@ -168,7 +169,7 @@ set noshellslash
 "-------------------------------------------------------
 "settings for display of eol and tab chars
 "-------------------------------------------------------
-set listchars=eol:¬
+"set listchars=eol:¬
 set nolist
 "-------------------------------------------------------
 "Filetype settings
@@ -327,3 +328,6 @@ let g:HtmlDir = '/mnt/dDrive/Ashwin/Documents/html-notes'
 nmap <Leader>nn :call NewNoteWithPath()<CR>
 nmap <Leader>fn :call FindNote()<CR>
 nmap <Leader>sn :call FindInNote()<CR>
+
+set wildmenu
+set wildmode=full,longest
