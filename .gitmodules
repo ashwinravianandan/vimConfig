@@ -82,3 +82,6 @@
 [submodule "bundle/vimNotes"]
 	path = bundle/vimNotes
 	url = https://github.com/ashwinravianandan/vimNotes.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
