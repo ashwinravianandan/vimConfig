@@ -62,19 +62,12 @@ set nu "show line numbers
 "set wildmode=list:longest,full
 set scrolloff=3
 
-if has('statusline')
-   set laststatus=2
 
-   " Broken down into easily includeable segments
-   set statusline=%<%f\ " Filename
-   set statusline+=%w%h%m%r " Option
-   set statusline+=%{fugitive#statusline()} " Git Hotnes                                                                s
-   set statusline+=\ [%{&ff}/%Y] " filetype
-   set statusline+=\ [%{getcwd()}] " current dir
-   set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
-   set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
-endif
+"Enable status line always
+set laststatus=2
 
+"Enable relative line numbers
+set rnu
 "-------------------------------------------------------
 " Mapleader
 "-------------------------------------------------------
@@ -292,6 +285,10 @@ let g:unite_source_history_yank_enable = 1
 "
 "ultisnips settings
 
+if executable( 'ucg' )
+   set grepprg=ucg\ -iRQ\ -j4\ --type-set=type1:ext:md,html\ --nocolor
+endif
+
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnipsPersonalSnippets"
 
 "ycm settings
@@ -326,8 +323,9 @@ let c_no_curly_error=1
 let g:NotesDir = '/mnt/dDrive/Ashwin/Documents/vim-notes'
 let g:HtmlDir = '/mnt/dDrive/Ashwin/Documents/html-notes'
 nmap <Leader>nn :call NewNoteWithPath()<CR>
-nmap <Leader>fn :call FindNote()<CR>
-nmap <Leader>sn :call FindInNote()<CR>
+nmap <Leader>nf :call FindNote()<CR>
+nmap <Leader>ns :call FindInNote()<CR>
 
+"Enabling wildmenu
 set wildmenu
 set wildmode=full,longest
