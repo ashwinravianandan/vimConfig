@@ -1,5 +1,5 @@
 set nocompatible
-
+scriptencoding utf-8
 "-------------------------------------------------------
 "Pathogen Settings
 "-------------------------------------------------------
@@ -21,13 +21,12 @@ if has("multi_byte")
 endif
 set background=dark
 syntax on
-  "colorscheme lucius
-  set guifont=Source\ Code\ Pro\ 12
+
 if has('gui_running')
   set guioptions-=T  " no toolbar
   set guioptions-=m  " no menubar
   "colorscheme solarized
-  colorscheme eclipse
+  colorscheme molokai
   "colorscheme navajo-night
   "set guifont=ProggyCleanTT:h14:cANSI
   set guifont=Source\ Code\ Pro\ 12
@@ -35,7 +34,7 @@ else
   colorscheme molokai
   set nolazyredraw
   set ttyfast
-  set guifont=Source\ Code\ Pro\ light\ 10
+  set guifont=Source\ Code\ Pro\ 12
 endif
 "-------------------------------------------------------
 " Gui settings: Sets window to max size
@@ -63,11 +62,6 @@ set nu "show line numbers
 set scrolloff=3
 
 
-"Enable status line always
-set laststatus=2
-
-"Enable relative line numbers
-set rnu
 "-------------------------------------------------------
 " Mapleader
 "-------------------------------------------------------
@@ -140,6 +134,8 @@ nmap <silent> <Leader>k <c-w>k
 nmap <silent> <Leader>x <c-w>x 
 nmap <silent> <Leader>c <c-w>c 
 nmap <silent> <Leader>o <c-w>o 
+nmap <silent> <Leader>v <c-w>v 
+nmap <silent> <Leader>s <c-w>s 
 
 "Sets the current working directory as the directory in which the current file
 "exists
@@ -286,7 +282,7 @@ let g:unite_source_history_yank_enable = 1
 "ultisnips settings
 
 if executable( 'ucg' )
-   set grepprg=ucg\ -iRQ\ -j4\ --type-set=type1:ext:md,html\ --nocolor
+   set grepprg=ucg\ -iRQ\ -j4\ --type-set=type1:ext:md,cfg,html\ --nocolor
 endif
 
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnipsPersonalSnippets"
@@ -329,3 +325,23 @@ nmap <Leader>ns :call FindInNote()<CR>
 "Enabling wildmenu
 set wildmenu
 set wildmode=full,longest
+
+"Enable status line always
+set laststatus=2
+
+" airline settings
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '¿'
+let g:airline_right_sep = '¿'
+let g:airline_symbols.branch = '¿'
+let g:airline_symbols.readonly = '¿'
+let g:airline_symbols.linenr = '¿'
+let g:airline_symbols.whitespace = '¿'
+let g:airline_symbols.linenr = '¶'
+
+"Vim project mapping
+nmap <Leader>pf :call OpenProject()<CR>
+
+

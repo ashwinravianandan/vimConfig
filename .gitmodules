@@ -1,9 +1,6 @@
 [submodule "bundle/indexer.tar.gz"]
 	path = bundle/indexer.tar.gz
 	url = https://github.com/vim-scripts/indexer.tar.gz.git
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
@@ -56,3 +53,6 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
+[submodule "bundle/vimProj"]
+	path = bundle/vimProj
+	url = https://github.com/ashwinravianandan/vimProj.git
