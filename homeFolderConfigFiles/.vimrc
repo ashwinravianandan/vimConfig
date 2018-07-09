@@ -15,23 +15,25 @@ filetype plugin on
 " vim plug config
 "-------------------------------------------------------
 call plug#begin('~/.vim/plugged')
-	Plug 'tpope/vim-fugitive'
-	Plug 'vim-scripts/a.vim'
-   Plug 'chazy/cscope_maps'
-	Plug 'tpope/vim-surround.git'
-	Plug 'tmhedberg/matchit.git'
-	Plug 'SirVer/ultisnips.git'
-	Plug 'Valloric/YouCompleteMe.git'
-	Plug 'majutsushi/tagbar.git'
-	Plug 'godlygeek/tabular.git'
-	Plug 'kien/ctrlp.vim.git'
-	Plug 'octol/vim-cpp-enhanced-highlight.git'
-	Plug 'vim-scripts/STL-Syntax.git'
-	Plug 'will133/vim-dirdiff.git'
-	Plug 'flazz/vim-colorschemes.git'
-	Plug 'ashwinravianandan/vimNotes.git'
-	Plug 'vim-airline/vim-airline'
-   Plug 'ashwinravianandan/vimProj.git'
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/vim-scripts/a.vim'
+Plug 'https://github.com/chazy/cscope_maps'
+Plug 'https://github.com/tpope/vim-surround.git'
+Plug 'https://github.com/tmhedberg/matchit.git'
+Plug 'https://github.com/SirVer/ultisnips.git'
+Plug 'https://github.com/Valloric/YouCompleteMe.git'
+Plug 'https://github.com/majutsushi/tagbar.git'
+Plug 'https://github.com/godlygeek/tabular.git'
+Plug 'https://github.com/kien/ctrlp.vim.git'
+Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
+Plug 'https://github.com/vim-scripts/STL-Syntax.git'
+Plug 'https://github.com/will133/vim-dirdiff.git'
+Plug 'https://github.com/flazz/vim-colorschemes.git'
+Plug 'https://github.com/ashwinravianandan/vimNotes.git'
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/ashwinravianandan/vimProj.git'
+Plug 'jsfaint/gen_tags.vim'
+Plug 'vim-scripts/gtags.vim'
 call plug#end()
 
 "-------------------------------------------------------
@@ -50,14 +52,14 @@ set background=dark
 syntax on
 
 if has('gui_running')
-  set guioptions-=T  " no toolbar
-  set guioptions-=m  " no menubar
-  colorscheme molokai
-  set guifont=Source\ Code\ Pro\ 12
+   set guioptions-=T  " no toolbar
+   set guioptions-=m  " no menubar
+   colorscheme molokai
+   set guifont=Source\ Code\ Pro\ 12
 else
-  colorscheme molokai
-  set nolazyredraw
-  set ttyfast
+   colorscheme molokai
+   set nolazyredraw
+   set ttyfast
 endif
 so $VIMRUNTIME/ftplugin/man.vim
 
@@ -128,7 +130,7 @@ set noshellslash
 "-------------------------------------------------------
 "settings for display of eol and tab chars
 "-------------------------------------------------------
-set listchars=eol:¬
+"set listchars=eol:?
 set nolist
 "-------------------------------------------------------
 "Case sensitivity
@@ -164,18 +166,17 @@ let g:notes_unicode_enabled = 0
 "so ~/.vim/bundle/cscope_maps.vim
 
 " Plant uml setting
-command! BuildUML :!java -jar "/usr/local/bin/plantuml.jar" -o "/home/ashwin/Documents/html-notes/images/plantUML" "%"
+command! BuildUML :!java -jar "/usr/share/plantuml/lib/plantuml.jar" -o "/home/ashwin/Documents/html-notes/images/plantUML" "%"
 command! -nargs=1 FilterLogs  call FilterDbusLogs(<f-args>)
 
-
 "-------------------------------------------------------
-"vim notes 
+" vim todo settings
 "-------------------------------------------------------
 au filetype markdown nmap <silent><buffer> <C-B> :call MarkDownToHtml()<CR>
 au filetype markdown set spell
 
 "Using par
-set formatprg=par-format\ -w80
+set formatprg=par\ -w80
 
 let g:ctrlp_map = '<leader>r'
 "-------------------------------------------------------
@@ -235,15 +236,34 @@ set laststatus=2
 
 " airline settings
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+   let g:airline_symbols = {}
 endif
-
-let g:airline_left_sep = '¿'
-let g:airline_right_sep = '¿'
-let g:airline_symbols.branch = '¿'
-let g:airline_symbols.linenr = '¿'
+"
+let g:airline_left_sep = 'î‚°'
+let g:airline_left_alt_sep = 'î‚±'
+let g:airline_right_sep = 'î‚²'
+let g:airline_right_alt_sep = 'î‚³'
+let g:airline_symbols.branch = 'î‚ '
+let g:airline_symbols.readonly = 'î‚¢'
+let g:airline_symbols.linenr = 'î‚¡'
+let g:airline_symbols.whitespace = 'Îž'
 
 "Vim project mapping
 nmap <Leader>pf :call OpenProject()<CR>
+set csprg=gtags-cscope 
 
+"vim build tags for project"
 
+function! BuildTags()
+   execute "!find -type f -iname '*.cpp' -o -iname '*.c' -o -iname '*.h' -o -iname '*.hpp' > tagfilelist && gtags -f tagfilelist && rm tagfilelist"
+   execute "cs add GTAGS ."
+   enew
+   Explore
+endfunction
+let g:project_command_hook = "call BuildTags()"
+
+function UpdateTags()
+   if filereadable(GTAGS)
+      execute "!global -u"
+   endif
+endfunction
