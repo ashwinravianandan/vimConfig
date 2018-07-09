@@ -1,11 +1,44 @@
 set nocompatible
 scriptencoding utf-8
+set fileencoding=utf-8
+setglobal encoding=utf-8
+
+"-------------------------------------------------------
+"Filetype settings
+"-------------------------------------------------------
+
+filetype on
+filetype indent on
+filetype plugin on
+
 "-------------------------------------------------------
 "Pathogen Settings
 "-------------------------------------------------------
-let g:pathogen_disabled = [ 'lucius', 'indentline', 'unite-outline', 'unite-tag', 'unite.vim', 'apprentice', 'xptemplate', 'vimproc.git', 'vim-notes', 'vim-misc' ]
-call pathogen#infect()
+"let g:pathogen_disabled = [ 'lucius', 'indentline', 'unite-outline', 'unite-tag', 'unite.vim', 'apprentice', 'xptemplate', 'vimproc.git', 'vim-notes', 'vim-misc' ]
+"call pathogen#infect()
 
+call plug#begin('~/.vim/plugged')
+	Plug 'https://github.com/tpope/vim-surround.git'
+	Plug 'https://github.com/tmhedberg/matchit.git'
+	Plug 'tpope/vim-fugitive'
+	Plug 'vim-scripts/a.vim'
+	Plug 'vim-scripts/a.vim'
+   Plug 'chazy/cscope_maps'
+	Plug 'https://github.com/SirVer/ultisnips.git'
+	Plug 'https://github.com/Valloric/YouCompleteMe.git'
+	Plug 'https://github.com/majutsushi/tagbar.git'
+	Plug 'https://github.com/godlygeek/tabular.git'
+	Plug 'https://github.com/Shougo/vimproc.vim.git'
+	Plug 'https://github.com/kien/ctrlp.vim.git'
+	Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
+	Plug 'https://github.com/vim-scripts/STL-Syntax.git'
+	Plug 'https://github.com/will133/vim-dirdiff.git'
+	Plug 'https://github.com/flazz/vim-colorschemes.git'
+	Plug 'https://github.com/ashwinravianandan/vimNotes.git'
+	Plug 'https://github.com/vim-airline/vim-airline'
+	Plug 'https://github.com/sjl/gundo.vim.git'
+   Plug 'https://github.com/ashwinravianandan/vimProj.git'
+call plug#end()
 "-------------------------------------------------------
 " Gui settings
 "-------------------------------------------------------
@@ -99,30 +132,11 @@ command! BuildCScopeDB :!cscope -b -R -s .<CR>
 " csope results are opened in the quick fix window
 set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
 
-" OmniCppComplete
-"let OmniCpp_NamespaceSearch = 1
-"let OmniCpp_GlobalScopeSearch = 1
-"let OmniCpp_ShowAccess = 1
-"let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-"let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-"let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-"let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-"let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-"" automatically open and close the popup menu / preview window
-"au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-""set completeopt=menuone,menu,longest,preview
-"set completeopt=menuone,menu,longest
-"let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 "-------------------------------------------------------
 " Mapping for , since it is used as the mapleader
 "-------------------------------------------------------
 nnoremap <c-e> ,
 vnoremap <c-e> ,
-
-"-------------------------------------------------------
-" Auto command to associate with sidl file
-"-------------------------------------------------------
-au BufRead,BufNewFile *.sidl set ft=sidl
 
 "-------------------------------------------------------
 " Key mappings
@@ -158,16 +172,8 @@ set noshellslash
 "-------------------------------------------------------
 "settings for display of eol and tab chars
 "-------------------------------------------------------
-"set listchars=eol:¬
+set listchars=eol:¬
 set nolist
-"-------------------------------------------------------
-"Filetype settings
-"-------------------------------------------------------
-
-filetype on
-filetype indent on
-filetype plugin on
-
 "-------------------------------------------------------
 "Case sensitivity
 "-------------------------------------------------------
@@ -231,8 +237,8 @@ let g:notes_unicode_enabled = 0
 
 
 
-so ~/.vim/bundle/a.vim
-so ~/.vim/bundle/cscope_maps.vim
+"so ~/.vim/bundle/a.vim
+"so ~/.vim/bundle/cscope_maps.vim
 
 " Plant uml setting
 command! BuildUML :!java -jar "/usr/local/bin/plantuml.jar" -o "/home/ashwin/Documents/html-notes/images/plantUML" "%"
@@ -333,13 +339,11 @@ set laststatus=2
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
 let g:airline_left_sep = '¿'
 let g:airline_right_sep = '¿'
 let g:airline_symbols.branch = '¿'
-let g:airline_symbols.readonly = '¿'
 let g:airline_symbols.linenr = '¿'
-let g:airline_symbols.whitespace = '¿'
-let g:airline_symbols.linenr = '¶'
 
 "Vim project mapping
 nmap <Leader>pf :call OpenProject()<CR>
