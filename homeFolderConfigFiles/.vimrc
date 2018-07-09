@@ -32,8 +32,8 @@ Plug 'https://github.com/flazz/vim-colorschemes.git'
 Plug 'https://github.com/ashwinravianandan/vimNotes.git'
 Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'https://github.com/ashwinravianandan/vimProj.git'
-Plug 'jsfaint/gen_tags.vim'
-Plug 'vim-scripts/gtags.vim'
+"Plug 'jsfaint/gen_tags.vim'
+"Plug 'vim-scripts/gtags.vim'
 call plug#end()
 
 "-------------------------------------------------------
@@ -111,6 +111,9 @@ nmap <silent> <Leader>c <c-w>c
 nmap <silent> <Leader>o <c-w>o 
 nmap <silent> <Leader>v <c-w>v 
 nmap <silent> <Leader>s <c-w>s 
+nmap <silent> <Leader>d :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <silent> <Leader>r :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <silent> <Leader>c :cs find c <C-R>=expand("<cword>")<CR><CR>
 
 "Sets the current working directory as the directory in which the current file
 "exists
@@ -254,16 +257,17 @@ set csprg=gtags-cscope
 
 "vim build tags for project"
 
-function! BuildTags()
+silent function! BuildTags()
    execute "!find -type f -iname '*.cpp' -o -iname '*.c' -o -iname '*.h' -o -iname '*.hpp' > tagfilelist && gtags -f tagfilelist && rm tagfilelist"
-   execute "cs add GTAGS ."
+   execute "cs kill 0"
+   execute "cs add GTAGS"
    enew
    Explore
 endfunction
 let g:project_command_hook = "call BuildTags()"
 
-function UpdateTags()
-   if filereadable(GTAGS)
+silent function! UpdateTags()
+   if filereadable("GTAGS")
       execute "!global -u"
    endif
 endfunction
