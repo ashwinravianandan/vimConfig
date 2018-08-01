@@ -32,8 +32,15 @@ Plug 'https://github.com/flazz/vim-colorschemes.git'
 Plug 'https://github.com/ashwinravianandan/vimNotes.git'
 Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'https://github.com/ashwinravianandan/vimProj.git'
-Plug 'jsfaint/gen_tags.vim'
-Plug 'vim-scripts/gtags.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'eagletmt/ghcmod-vim'
+Plug 'eagletmt/neco-ghc'
+Plug 'vim-syntastic/syntastic'
+Plug 'lukerandall/haskellmode-vim'
 call plug#end()
 
 "-------------------------------------------------------
@@ -54,10 +61,10 @@ syntax on
 if has('gui_running')
    set guioptions-=T  " no toolbar
    set guioptions-=m  " no menubar
-   colorscheme molokai
+   colorscheme gruvbox
    set guifont=Source\ Code\ Pro\ 12
 else
-   colorscheme molokai
+   colorscheme gruvbox
    set nolazyredraw
    set ttyfast
 endif
@@ -111,12 +118,32 @@ nmap <silent> <Leader>c <c-w>c
 nmap <silent> <Leader>o <c-w>o 
 nmap <silent> <Leader>v <c-w>v 
 nmap <silent> <Leader>s <c-w>s 
+nmap <silent> <Leader>fd :cs f g <C-R>=expand( "<cword>" )<CR><CR>
+nmap <silent> <Leader>fr :cs f s <C-R>=expand( "<cword>" )<CR><CR>
+nmap <silent> <Leader>fc :cs f c <C-R>=expand( "<cword>" )<CR><CR>
 
 "Sets the current working directory as the directory in which the current file
 "exists
 nmap <silent> <Leader>wd :lcd! %:p:h<CR>
 nmap <silent> <Leader>tt :TagbarToggle<CR>
+inoremap < <><Left>
+inoremap <<space> <<space>
+inoremap << <<
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap ( (  )<Left><Left>
+inoremap [ []<Left>
+inoremap { {<CR>}O
+inoremap <C-u>" "
+inoremap <C-u>' '
+inoremap <C-u>( (
+inoremap <C-u>[ [
+inoremap <C-u>{ {
+inoremap <C-c>{ {  }<Left><Left>
+inoremap () ()
+inoremap {} {}
 
+imap <Leader>o 
 "-------------------------------------------------------
 " Tab settings
 "-------------------------------------------------------
@@ -172,8 +199,17 @@ command! -nargs=1 FilterLogs  call FilterDbusLogs(<f-args>)
 "-------------------------------------------------------
 " vim todo settings
 "-------------------------------------------------------
-au filetype markdown nmap <silent><buffer> <C-B> :call MarkDownToHtml()<CR>
-au filetype markdown set spell
+
+augroup vimrc
+   autocmd!
+   au BufRead *.tsx set ft=typescript
+   au BufRead *.jsx set ft=javascript
+   au filetype markdown nmap <silent><buffer> <C-B> :call MarkDownToHtml()<CR>
+   au filetype markdown set spell
+   au filetype cpp autocmd vimrc BufWritePost <buffer> call UpdateTags()
+   au filetype javascript call JsMode()
+   au filetype typescript call JsMode()
+augroup END
 
 "Using par
 set formatprg=par\ -w80
@@ -204,6 +240,7 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnipsPersonalSnippets"
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:UltiSnipsSnippetDirectories = [ 'Ultisnips', 'UltiSnipsPersonalSnippets' ]
 let g:ycm_use_ultisnips_completer = 1
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:UltiSnipsExpandTrigger="<C-e>"
 "let g:UltiSnipsListSnippets="<c-tab>"
 "let g:UltiSnipsJumpForwardTrigger="<C-j>"
@@ -252,18 +289,32 @@ let g:airline_symbols.whitespace = 'Ξ'
 nmap <Leader>pf :call OpenProject()<CR>
 set csprg=gtags-cscope 
 
+let g:project_command_hook = "BuildTags"
+
 "vim build tags for project"
-
-function! BuildTags()
-   execute "!find -type f -iname '*.cpp' -o -iname '*.c' -o -iname '*.h' -o -iname '*.hpp' > tagfilelist && gtags -f tagfilelist && rm tagfilelist"
-   execute "cs add GTAGS ."
-   enew
-   Explore
+silent function! LoadTags( channel )
+silent! execute "cs add GTAGS"
+echo "GTAGS built and loaded"
 endfunction
-let g:project_command_hook = "call BuildTags()"
 
-function UpdateTags()
-   if filereadable(GTAGS)
-      execute "!global -u"
-   endif
+silent function! UpdateTags()
+if filereadable("GTAGS")
+   silent! execute "cs kill 0"
+   call job_start( "global -u", { "close_cb": "LoadTags" } )
+endif
 endfunction
+
+silent function! BuildTags(  )
+if !filereadable( "GTAGS" )
+   silent! execute "cs kill 0"
+   call job-start( "gtags-cscope -b", { "close_cb": "LoadTags" })
+else
+   silent! execute "cs add GTAGS"
+endif
+enew
+Explore
+endfunction
+
+
+let g:haddock_browser="/usr/bin/firefox"
+
