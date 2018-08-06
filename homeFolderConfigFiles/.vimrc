@@ -206,7 +206,10 @@ augroup vimrc
    autocmd!
    au BufRead *.tsx set ft=typescript
    au BufRead *.jsx set ft=javascript
+<<<<<<< HEAD
    au filetype haskell  call HaskellMode()
+=======
+>>>>>>> 75754bf76b9d8c90d77f5abe2f3dcdad24786112
    au filetype markdown nmap <silent><buffer> <C-B> :call MarkDownToHtml()<CR>
    au filetype markdown set spell
    au filetype cpp autocmd vimrc BufWritePost <buffer> call UpdateTags()
@@ -305,6 +308,7 @@ if filereadable("GTAGS")
    silent! execute "cs kill 0"
    call job_start( "global -u", { "close_cb": "LoadTags" } )
 endif
+<<<<<<< HEAD
 endfunction
 
 silent function! BuildTags(  )

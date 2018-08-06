@@ -1,7 +1,8 @@
-function! MarkDownToHtml()
-   let l:Output = expand("%:p:h") . "/../html-notes/" . expand("%:p:t:r") . ".html"
-   execute "!pandoc -f markdown -t html  --standalone --css=\"../html-notes/vimNotesStyleSheet.css\" \"" . expand("%:p") . "\" -o \"" . l:Output . "\""
-endfunction
+"function! MarkDownToHtml()
+"   let l:Output = g:HtmlDir. "/" . expand("%:p:t:r") . ".html"
+"   "execute "!pandoc -f markdown -t html  --standalone \"" . expand("%:p") . "\" -o \"" . l:Output . "\""
+"   execute "!pandoc -f markdown -t html  --standalone \"" . expand("%:p") . "\" -o \"" . l:Output . "\""
+"endfunction
 
 function! InsertHTMLFilePath()
    let FilePath = ""
