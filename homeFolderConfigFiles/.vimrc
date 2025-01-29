@@ -19,7 +19,7 @@ Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/vim-scripts/a.vim'
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/tmhedberg/matchit.git'
-"Plug 'https://github.com/SirVer/ultisnips.git'
+Plug 'https://github.com/SirVer/ultisnips.git'
 "Plug 'https://github.com/Valloric/YouCompleteMe.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
 Plug 'https://github.com/godlygeek/tabular.git'
@@ -44,6 +44,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 call plug#end()
 
 "-------------------------------------------------------
@@ -58,7 +60,8 @@ if has("multi_byte")
    "setglobal bomb
    "set fileencodings=ucs-bom,utf-8,latin1
 endif
-set background=dark
+"set background=dark
+set termguicolors
 syntax on
 
 if has('gui_running')
@@ -67,7 +70,7 @@ if has('gui_running')
    colorscheme gruvbox
    set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
 else
-   colorscheme jellybeans
+   colorscheme catppuccin_mocha
    set nolazyredraw
    set ttyfast
 endif
@@ -281,7 +284,16 @@ set laststatus=2
 " airline settings
 if !exists('g:airline_symbols')
    let g:airline_symbols = {}
+   let g:airline_left_sep = ''
+   let g:airline_right_sep = ''
+   let g:airline_symbols.branch = ''
+   let g:airline_symbols.colnr = ' ℅:'
+   let g:airline_symbols.readonly = ''
+   let g:airline_symbols.linenr = ' :'
+   let g:airline_symbols.maxlinenr = '☰ '
+   let g:airline_symbols.dirty='⚡'
 endif
+let g:airline_theme='catppuccin_mocha'
 "
 
 "Vim project mapping
